@@ -1,11 +1,5 @@
 import LOCAL_STORAGE_SERVICE from "../service/localStorageService";
 
-export const UserActions = {
-    ADD_DISH_TO_CATALOG: "[Recipe] Create new dish",
-    SHOW_ALL_DISHES: "[Recipe] Show all dishes",
-    SAVE_DISH_DETAILS: "[Recipe] Show all dishes",
-}
-
 export function createNewDish(data, state) {
     return (dispatch) => {
         dispatch({
@@ -27,7 +21,7 @@ export function fetchDishes() {
 export function saveDishDetails(data, state) {
     return (dispatch) => {
         dispatch({
-            type: UserActions.SAVE_DISH_DETAILS,
+            type: 'SAVE_DISH_DETAILS',
             payload: data
         });
     };

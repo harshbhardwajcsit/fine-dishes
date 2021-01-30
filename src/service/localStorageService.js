@@ -1,7 +1,6 @@
 const LOCAL_STORAGE_SERVICE = {
 
     createDish: (data) => {
-        console.log(data)
         if (localStorage.getItem('dishes')) {
             const existingDishes = JSON.parse(localStorage.getItem('dishes'));
             existingDishes.push(data)

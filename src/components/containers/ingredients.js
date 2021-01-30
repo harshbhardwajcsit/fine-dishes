@@ -1,61 +1,121 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import {connect} from "react-redux";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import {Fab, FormControl} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class Ingredients extends React.Component {
 
     constructor(props) {
         super(props);
-        this.ingredients = [{name:'I1', amount:'1', unit:'Kg'}];
+        this.ingredient = {name: '', amount: '', unit: ''};
+        this.ingredients = []
+        this.state = {
+            directors_array: ["director-0"]
+        };
     };
+
+    addIngredientsToList() {
+        this.ingredients.push({name: this.ingredient.name, amount: this.ingredient.amount, unit: this.ingredient.unit});
+        this.handleIngredientChange(this.ingredients);
+        let newInput = `director-${this.state.directors_array.length}`;
+        this.setState(prevState => ({
+            directors_array: prevState.directors_array.concat([newInput])
+        }));
+    }
 
     render() {
         return (
-            <React.Fragment>
-                <Typography variant="h6" gutterBottom>
-                    Add Ingredients
-                </Typography>
-                <Grid container spacing={3}>
-                    <button onClick={this.handleIngredientChange.bind(this)}>Add</button>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            id="dishName"
-                            name="dishName"
-                            label="Name of the Dish"
-                            fullWidth
-                            autoComplete="Name of the Dish"
-                        />
+            <div>
+                {this.state.directors_array.map((input, index) => (
+                    <Grid xs={12} container spacing={1} item>
+                        <Grid xs={3} item>
+                            <FormControl fullWidth margin="dense">
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    onChange={this.handleIngredientAddition.bind(this)}
+                                    id="name"
+                                    label="Ingredient"
+                                    name="name"
+                                    size="small"
+                                    className="name"
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid xs={3} item>
+                            <FormControl fullWidth margin="dense">
+                                <TextField
+                                    variant="outlined"
+                                    type="number"
+                                    required
+                                    onChange={this.handleIngredientAddition.bind(this)}
+                                    id="amount"
+                                    label="Amount"
+                                    name="amount"
+                                    size="small"
+                                    className="name"
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid xs={3} item>
+                            <FormControl fullWidth margin="dense">
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    onChange={this.handleIngredientAddition.bind(this)}
+                                    id="unit"
+                                    label="Unit"
+                                    name="unit"
+                                    size="small"
+                                    className="unit"
+                                />
+                            </FormControl>
+                        </Grid>
+                        <Grid xs={3} item>
+                            <FormControl fullWidth margin="dense">
+                                <TextField
+                                    InputProps={{
+                                        endAdornment: index + 1 ===
+                                            this.state.directors_array.length && (
+                                                <InputAdornment position="end">
+                                                    <Tooltip title="Add Ingredient">
+                                                        <Fab
+                                                            color="primary"
+                                                            size="small"
+                                                            onClick={() => this.addIngredientsToList()}>
+                                                            <AddIcon/>
+                                                        </Fab>
+                                                    </Tooltip>
+                                                </InputAdornment>
+                                            )
+                                    }}/>
+                            </FormControl>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            id="picture"
-                            name="picture"
-                            label="Picture of your dish"
-                            fullWidth
-                            autoComplete="Picture of your dish"
-                        />
-                    </Grid>
-                    <Grid item xs={12}/>
-                </Grid>
-            </React.Fragment>
+                ))}
+            </div>
         );
     }
 
-    addOptionForNewIngredient(){
-
+    handleIngredientChange(list) {
+        if (list.size !== 0) {
+            this.props.updateDishDetails(
+                {
+                    dishName: this.props.dish.dishName,
+                    url: this.props.dish.url,
+                    ingredients: list
+                }
+            )
+        }
     }
 
-    handleIngredientChange(event){
-        this.props.updateDishDetails(
-            {
-                dishName: this.props.dish.dishName,
-                url: this.props.dish.url,
-                ingredients:this.ingredients
-            }
-        )
+    handleIngredientAddition(event) {
+        this.ingredient[event.target.name] = event.target.value;
+
     }
 }
 

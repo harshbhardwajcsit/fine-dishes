@@ -3,6 +3,11 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../../redux/userAction';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 class RecipeList extends React.Component {
 
@@ -12,6 +17,7 @@ class RecipeList extends React.Component {
 
         this.userActions = bindActionCreators(actions, dispatch);
         this.userActions.fetchDishes();
+        this.expanded = false;
     }
 
     render() {
@@ -37,13 +43,32 @@ class RecipeList extends React.Component {
 
     }
 
+    handleExpandClick() {
+        this.expanded = !this.expanded;
+    }
+
     generateListOfDishes(dishes) {
         const htmlRenderingList = [];
         dishes.map(dish => {
-            htmlRenderingList.push(<div>
-                <h3>{dish.dishName}</h3>
-                <p>{dish.url}</p>
-                <p>{dish.recipe}</p></div>)
+            htmlRenderingList.push(
+                <Card>
+                    <CardHeader
+                        title={dish.dishName}/>
+                    <CardMedia
+                        image={dish.url}/>
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {/*{dish.ingredients}*/}
+                        </Typography>
+                    </CardContent>
+                    <CardContent>
+                        <Typography paragraph>Step for cooking:</Typography>
+                        <Typography paragraph>
+                            {dish.recipe}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            )
         })
         return htmlRenderingList;
     }

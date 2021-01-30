@@ -6,12 +6,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import CommonStyling from '../../styling/commonStyling'
 import DishDetails from '../containers/dishDetails'
 import Ingredients from '../containers/ingredients'
 import Recipe from '../containers/recipe'
 import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
 import * as actions from "../../redux/userAction";
 import { bindActionCreators } from 'redux';
@@ -123,8 +121,7 @@ function NewRecipe(props) {
                                         variant="contained"
                                         color="primary"
                                         onClick={handleNext}
-                                        className={classes.button}
-                                    >
+                                        className={classes.button}>
                                         {activeStep === steps.length - 1 ? 'Save' : 'Next'}
                                     </Button>
                                 </div>

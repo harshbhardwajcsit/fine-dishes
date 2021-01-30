@@ -11,9 +11,6 @@ import NewRecipe from './pages/newRecipe';
 const RecipePage = withRouter(Recipes);
 const NewRecipePage = withRouter(NewRecipe);
 
-/*
- * mapStateToProps
-*/
 const mapStateToProps = state => ({
     ...state
 })
