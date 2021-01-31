@@ -12,8 +12,7 @@ import Recipe from '../containers/recipe'
 import {connect} from 'react-redux';
 import {makeStyles} from "@material-ui/core/styles";
 import * as actions from "../../redux/userAction";
-import { bindActionCreators } from 'redux';
-
+import {bindActionCreators} from 'redux';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -81,7 +80,6 @@ function NewRecipe(props) {
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
-
 
     return (
         <React.Fragment>

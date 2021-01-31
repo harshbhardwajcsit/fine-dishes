@@ -3,10 +3,6 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../../redux/userAction';
 import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -14,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from "@material-ui/core/Grid";
+import * as AppUtility from '../../utility/appUtility'
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
 const checkedIcon = <CheckBoxIcon fontSize="small"/>;
@@ -46,7 +43,7 @@ class RecipeList extends React.Component {
                         <Autocomplete
                             multiple
                             id="checkboxes-tags-demo"
-                            options={this.getAllIngredients(this.cloneDishes)}
+                            options={AppUtility.getAllIngredients(this.cloneDishes)}
                             disableCloseOnSelect
                             onChange={(event, newValue) => {
                                 this.selectIngredient(newValue);
@@ -72,20 +69,23 @@ class RecipeList extends React.Component {
                     </Grid>
                     <Grid xs={6} item>
                         <Button variant="contained"
+                                style={{float: "right"}}
                                 color="primary" onClick={() => this.nextPath('/new-recipe')}>New Recipe</Button>
                     </Grid>
-                    {this.generateListOfDishes(this.dishes)}
+                    {AppUtility.generateListOfDishes(this.dishes)}
                 </Grid>
 
             );
         } else {
             return (
                 <React.Fragment>
-                    <Typography variant="h5" gutterBottom>
-                        No dishes are available in Catalog
-                    </Typography>
-                    <Button variant="contained"
-                            color="primary" onClick={() => this.nextPath('/new-recipe')}>New Recipe</Button>
+                    <div style={{textAlign: 'center', padding: 250}}>
+                        <Typography variant="h5" gutterBottom>
+                            No dishes are available in Catalog
+                        </Typography>
+                        <Button variant="contained"
+                                color="primary" onClick={() => this.nextPath('/new-recipe')}>New Recipe</Button>
+                    </div>
                 </React.Fragment>
             )
 
@@ -110,60 +110,6 @@ class RecipeList extends React.Component {
         this.dishes = [...filteredDishes];
         this.render();
         this.setState(this.props)
-    }
-
-    generateListOfDishes(dishes) {
-        const htmlRenderingList = [];
-        dishes.map(dish => {
-            htmlRenderingList.push(
-                <Card style={{padding: 20}}>
-                    <CardHeader
-                        title={dish.dishName}/>
-                    <CardMedia
-                        image={dish.url}/>
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {this.getDishIngredientLabel(dish)}
-                        </Typography>
-                    </CardContent>
-                    <CardContent>
-                        <Typography paragraph>Step for cooking:</Typography>
-                        <Typography paragraph>
-                            {dish.recipe}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            )
-        })
-        return htmlRenderingList;
-    }
-
-    getDishIngredientLabel(dish) {
-        const ingredients = dish.ingredients;
-        let label = ''
-        ingredients.map(ingredient => {
-            label = label.concat(ingredient.ingredientName, '(', ingredient.quantity, ingredient.unit, ')', " ");
-        })
-        return label
-    }
-
-    getAllIngredients(dishes) {
-        const listOfIngredients = [];
-
-        if (dishes && dishes.length > 0) {
-            dishes.map(dish => {
-                const ingredients = dish.ingredients;
-                if (ingredients) {
-                    ingredients.map(ingredient => {
-                        if (!listOfIngredients.includes(ingredient)) {
-                            listOfIngredients.push(ingredient);
-                        }
-                    })
-                }
-            })
-        }
-
-        return listOfIngredients;
     }
 }
 
