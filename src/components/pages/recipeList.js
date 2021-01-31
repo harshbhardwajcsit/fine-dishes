@@ -48,7 +48,7 @@ class RecipeList extends React.Component {
                             onChange={(event, newValue) => {
                                 this.selectIngredient(newValue);
                             }}
-                            getOptionLabel={(option) => option.ingredientName}
+                            getOptionLabel={(option) => option.name}
                             renderOption={(option, {selected}) => (
                                 <React.Fragment>
                                     <Checkbox
@@ -57,7 +57,7 @@ class RecipeList extends React.Component {
                                         style={{marginRight: 8}}
                                         checked={selected}
                                     />
-                                    {option.ingredientName}
+                                    {option.name}
                                 </React.Fragment>
                             )}
                             style={{width: 500}}
@@ -98,7 +98,7 @@ class RecipeList extends React.Component {
         filteredIngredients.map(i => {
             this.cloneDishes.map(dish => {
                 dish.ingredients.map(j => {
-                    if (j.ingredientName === i.ingredientName) {
+                    if (j.name === i.name) {
                         if (!filteredDishes.includes(dish)) {
                             filteredDishes.push(dish);
                         }

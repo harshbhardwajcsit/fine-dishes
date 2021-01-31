@@ -67,12 +67,16 @@ function getStepContent(step) {
 }
 
 function NewRecipe(props) {
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
 
+    const nextPath = (path) => {
+        props.history.push(path);
+    }
     const handleNext = () => {
         setActiveStep(activeStep + 1);
-        if(activeStep === 2){
+        if (activeStep === 2) {
             props.actions.createNewDish(props.dish)
         }
     };
@@ -83,11 +87,11 @@ function NewRecipe(props) {
 
     return (
         <React.Fragment>
-            <CssBaseline />
+            <CssBaseline/>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
-                        New Dish
+                        Create new recipe
                     </Typography>
                     <Stepper activeStep={activeStep} className={classes.stepper}>
                         {steps.map((label) => (
@@ -105,6 +109,12 @@ function NewRecipe(props) {
                                 <Typography variant="subtitle1">
                                     Let's move to the catalog and see how it is how it is looking !
                                 </Typography>
+                                <Button variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        onClick={() => nextPath('/')}>
+                                    View Catalog
+                                </Button>
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
@@ -130,6 +140,7 @@ function NewRecipe(props) {
             </main>
         </React.Fragment>
     );
+
 }
 
 function mapStateToProps(state) {

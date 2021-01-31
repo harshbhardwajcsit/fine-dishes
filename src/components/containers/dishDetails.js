@@ -43,6 +43,7 @@ class DishDetails extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="url"
                             name="url"
                             value={this.state.url}

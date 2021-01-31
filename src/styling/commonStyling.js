@@ -3,6 +3,7 @@ import {red} from "@material-ui/core/colors";
 export function getStyling() {
     return {
         card: {
+            paddingBottom: 15,
             root: {
                 padding: 20,
             },

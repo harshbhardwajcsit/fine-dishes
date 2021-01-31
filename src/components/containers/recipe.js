@@ -21,7 +21,7 @@ class Recipe extends React.Component {
                     <Grid item xs={12}>
                         <TextareaAutosize
                             aria-label="minimum height"
-                            rowsMin={10} placeholder="Minimum 3 rows"
+                            rowsMin={10} placeholder="Minimum 200 words"
                             value={this.recipe}
                             onChange={this.handleRecipeChange.bind(this)}
                         />

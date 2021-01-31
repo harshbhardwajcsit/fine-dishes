@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import {Fab, FormControl} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import {FormControl} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Tooltip from "@material-ui/core/Tooltip";
+import Button from '@material-ui/core/Button';
 
 class Ingredients extends React.Component {
 
@@ -77,18 +77,19 @@ class Ingredients extends React.Component {
                         </Grid>
                         <Grid xs={3} item>
                             <FormControl fullWidth margin="dense">
-                                <TextField
-                                    InputProps={{
-                                        endAdornment: index + 1 ===
-                                            this.state.directors_array.length && (
-                                                <InputAdornment position="end">
-                                                    <Tooltip title="Add Ingredient">
-                                                        <Fab
-                                                            color="primary"
-                                                            size="small"
-                                                            onClick={() => this.addIngredientsToList()}>
-                                                            <AddIcon/>
-                                                        </Fab>
+                                <TextField hidden={true}
+                                           InputProps={{
+                                               endAdornment: index + 1 ===
+                                                   this.state.directors_array.length && (
+                                                       <InputAdornment position="end">
+                                                           <Tooltip title="Add Ingredient">
+                                                               <Button
+                                                                   color="primary"
+                                                                   size="small"
+                                                                   variant="contained"
+                                                                   onClick={() => this.addIngredientsToList()}>
+                                                                   Save
+                                                               </Button>
                                                     </Tooltip>
                                                 </InputAdornment>
                                             )
@@ -115,7 +116,6 @@ class Ingredients extends React.Component {
 
     handleIngredientAddition(event) {
         this.ingredient[event.target.name] = event.target.value;
-
     }
 }
 

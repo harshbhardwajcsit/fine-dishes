@@ -4,7 +4,11 @@ const LOCAL_STORAGE_SERVICE = {
         if (localStorage.getItem('dishes')) {
             const existingDishes = JSON.parse(localStorage.getItem('dishes'));
             existingDishes.push(data)
-            localStorage.setItem('dishes',JSON.stringify(existingDishes));
+            localStorage.setItem('dishes', JSON.stringify(existingDishes));
+        } else {
+            const newDishes = [];
+            newDishes.push(data);
+            localStorage.setItem('dishes', JSON.stringify(newDishes));
         }
     },
 
