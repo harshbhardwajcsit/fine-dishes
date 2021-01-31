@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import '../App.css';
-import * as userAction from '../redux/userAction'
 import {withRouter} from 'react-router';
 import Header from './common/header';
 import Recipes from './pages/recipeList';
@@ -15,7 +14,7 @@ const mapStateToProps = state => ({
     ...state
 })
 
-class App extends Component {
+export class App extends React.Component {
 
     render() {
         return (
