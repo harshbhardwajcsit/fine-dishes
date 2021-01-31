@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {makeStyles} from "@material-ui/core/styles";
 import * as actions from "../../redux/userAction";
 import {bindActionCreators} from 'redux';
+import * as validator from '../../validator/appValidator'
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Details', 'Ingredients', 'Recipe',];
 
-function getStepContent(step) {
+function getStepContent(step, props) {
     switch (step) {
         case 0:
             return <DishDetails/>;
@@ -126,6 +127,7 @@ function NewRecipe(props) {
                                         </Button>
                                     )}
                                     <Button
+                                        disabled={validator.fieldsMissing(activeStep, props)}
                                         variant="contained"
                                         color="primary"
                                         onClick={handleNext}

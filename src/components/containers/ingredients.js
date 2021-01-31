@@ -6,6 +6,7 @@ import {FormControl} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from '@material-ui/core/Button';
+import * as validator from '../../validator/appValidator'
 
 class Ingredients extends React.Component {
 
@@ -17,15 +18,6 @@ class Ingredients extends React.Component {
             directors_array: ["director-0"]
         };
     };
-
-    addIngredientsToList() {
-        this.ingredients.push({name: this.ingredient.name, amount: this.ingredient.amount, unit: this.ingredient.unit});
-        this.handleIngredientChange(this.ingredients);
-        let newInput = `director-${this.state.directors_array.length}`;
-        this.setState(prevState => ({
-            directors_array: prevState.directors_array.concat([newInput])
-        }));
-    }
 
     render() {
         return (
@@ -91,9 +83,9 @@ class Ingredients extends React.Component {
                                                                    Save
                                                                </Button>
                                                     </Tooltip>
-                                                </InputAdornment>
-                                            )
-                                    }}/>
+                                                       </InputAdornment>
+                                                   )
+                                           }}/>
                             </FormControl>
                         </Grid>
                     </Grid>
@@ -102,8 +94,17 @@ class Ingredients extends React.Component {
         );
     }
 
+    addIngredientsToList() {
+        this.ingredients.push({name: this.ingredient.name, amount: this.ingredient.amount, unit: this.ingredient.unit});
+        this.handleIngredientChange(this.ingredients);
+        let newInput = `director-${this.state.directors_array.length}`;
+        this.setState(prevState => ({
+            directors_array: prevState.directors_array.concat([newInput])
+        }));
+    }
+
     handleIngredientChange(list) {
-        if (list.size !== 0) {
+        if (list.size !== 0 && validator.validateIngredientList(list)) {
             this.props.updateDishDetails(
                 {
                     dishName: this.props.dish.dishName,
@@ -135,5 +136,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ingredients);
-
-
