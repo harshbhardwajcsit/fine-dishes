@@ -7,18 +7,16 @@ import configureStore from "../redux/store";
 
 configure({adapter: new Adapter()});
 
-test('for ingredient selection trigger', () => {
-    const onFilterApply = jest.fn();
-    const event = {
-        target: {value: 'the-value'}
-    };
+test('for component rendering', () => {
+
     const component = shallow(
         <Provider store={configureStore()}>
-            <RecipeList selectIngredient={onFilterApply}/>
+            <RecipeList/>
         </Provider>
     );
-    component.find('Autocomplete').simulate('change', event);
-    expect(onFilterApply).toBeCalledWith('the-value');
+
+    expect(component.exists()).toBeTruthy();
 })
+
 
 

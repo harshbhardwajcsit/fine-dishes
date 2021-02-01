@@ -67,3 +67,20 @@ export function getAllIngredients(dishes) {
 
     return listOfIngredients;
 }
+
+export function filterDishesOnIngredientSelect(filteredIngredients, dishes) {
+    const filteredDishes = [];
+
+    filteredIngredients.map(i => {
+        dishes.map(dish => {
+            dish.ingredients.map(j => {
+                if (j.name === i.name) {
+                    if (!filteredDishes.includes(dish)) {
+                        filteredDishes.push(dish);
+                    }
+                }
+            })
+        })
+    })
+    return filteredDishes;
+}

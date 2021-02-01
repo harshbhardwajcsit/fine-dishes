@@ -1,47 +1,26 @@
-import React from 'react';
-import * as appUtility from './../utility/appUtility'
-
-const mockDishes = [
-    {
-        dishName: "Greek Salad",
-        url: "https://www.jessicagavin.com/wp-content/uploads/2018/02/greek-salad-2-1200.jpg",
-        ingredients: [
-            {name: "Tomato", amount: "1", unit: "Kg"},
-            {name: "Paneer", amount: "2", unit: "Liter"},
-            {name: "Beans", amount: "1", unit: "Bowl"}
-        ],
-        recipe: 'some Recipe'
-    },
-    {
-        dishName: "Greek Salad Part 2",
-        url: "https://www.jessicagavin.com/wp-content/uploads/2018/02/greek-salad-2-1200.jpg",
-        ingredients: [
-            {name: "Potato", amount: "1", unit: "Kg"},
-            {name: "Cheese", amount: "2", unit: "Liter"},
-            {name: "Butter", amount: "1", unit: "Bowl"}
-        ],
-        recipe: 'some Recipe'
-    }
-]
+import * as appUtility from '../utility/appUtility'
+import * as testConstants from '../test/testConstant'
 
 test('for dishes rendered on main page', () => {
-    expect(appUtility.generateListOfDishes(mockDishes).length).toBe(2);
+    expect(appUtility.generateListOfDishes(testConstants.mockDishes).length).toBe(2);
 })
 
 test('for ingredient filter dropdown', () => {
-    const ingredients = [
-        {name: "Tomato", amount: "1", unit: "Kg"},
-        {name: "Paneer", amount: "2", unit: "Liter"},
-        {name: "Beans", amount: "1", unit: "Bowl"},
-        {name: "Potato", amount: "1", unit: "Kg"},
-        {name: "Cheese", amount: "2", unit: "Liter"},
-        {name: "Butter", amount: "1", unit: "Bowl"},
-    ]
 
-    expect(appUtility.getAllIngredients(mockDishes)).toStrictEqual(ingredients);
+    expect(appUtility.getAllIngredients(testConstants.mockDishes)).toStrictEqual(testConstants.mockIngredients);
 })
 
 test('for ingredient label', () => {
     const label = "Tomato(1Kg) Paneer(2Liter) Beans(1Bowl) ";
-    expect(appUtility.getDishIngredientLabel(mockDishes[0])).toStrictEqual(label);
+    expect(appUtility.getDishIngredientLabel(testConstants.mockDishes[0])).toStrictEqual(label);
+})
+
+test('for dish filter on ingredient select from dropdown', () => {
+    const ingredients = [
+        {name: "Tomato", amount: "1", unit: "Kg"}
+    ]
+
+    const filteredDishes = [];
+    filteredDishes.push(testConstants.mockDishes[0]);
+    expect(appUtility.filterDishesOnIngredientSelect(ingredients, testConstants.mockDishes)).toStrictEqual(filteredDishes);
 })

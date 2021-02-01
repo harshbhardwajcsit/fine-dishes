@@ -72,7 +72,7 @@ class RecipeList extends React.Component {
                                 style={{float: "right"}}
                                 color="primary" onClick={() => this.nextPath('/new-recipe')}>New Recipe</Button>
                     </Grid>
-                    {AppUtility.generateListOfDishes(this.dishes)}
+                     {AppUtility.generateListOfDishes(this.dishes)}
                 </Grid>
 
             );
@@ -93,20 +93,7 @@ class RecipeList extends React.Component {
     }
 
     selectIngredient(filteredIngredients) {
-        const filteredDishes = [];
-
-        filteredIngredients.map(i => {
-            this.cloneDishes.map(dish => {
-                dish.ingredients.map(j => {
-                    if (j.name === i.name) {
-                        if (!filteredDishes.includes(dish)) {
-                            filteredDishes.push(dish);
-                        }
-                    }
-                })
-            })
-        })
-
+        const filteredDishes = AppUtility.filterDishesOnIngredientSelect(filteredIngredients, this.cloneDishes);
         this.dishes = [...filteredDishes];
         this.render();
         this.setState(this.props)
