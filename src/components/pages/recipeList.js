@@ -72,7 +72,7 @@ class RecipeList extends React.Component {
                                 style={{float: "right"}}
                                 color="primary" onClick={() => this.nextPath('/new-recipe')}>New Recipe</Button>
                     </Grid>
-                     {AppUtility.generateListOfDishes(this.dishes)}
+                    {AppUtility.generateListOfDishes(this.dishes)}
                 </Grid>
 
             );

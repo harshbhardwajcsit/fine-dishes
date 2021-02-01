@@ -48,7 +48,7 @@ class DishDetails extends React.Component {
                             name="url"
                             value={this.state.url}
                             onChange={this.handleChangeURL.bind(this)}
-                            label="Picture of your dish"
+                            label="Picture of your dish (URL)"
                             fullWidth
                             autoComplete="Picture of your dish"
                         />

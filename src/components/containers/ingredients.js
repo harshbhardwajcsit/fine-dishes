@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import {FormControl} from "@material-ui/core";
+import {Fab, FormControl} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Tooltip from "@material-ui/core/Tooltip";
-import Button from '@material-ui/core/Button';
+import AddIcon from "@material-ui/icons/Add";
 import * as validator from '../../validator/appValidator'
 
 class Ingredients extends React.Component {
@@ -21,76 +21,68 @@ class Ingredients extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.state.directors_array.map((input, index) => (
-                    <Grid xs={12} container spacing={1} item>
-                        <Grid xs={3} item>
-                            <FormControl fullWidth margin="dense">
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    onChange={this.handleIngredientAddition.bind(this)}
-                                    id="name"
-                                    label="Ingredient"
-                                    name="name"
-                                    size="small"
-                                    className="name"
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid xs={3} item>
-                            <FormControl fullWidth margin="dense">
-                                <TextField
-                                    variant="outlined"
-                                    type="number"
-                                    required
-                                    onChange={this.handleIngredientAddition.bind(this)}
-                                    id="amount"
-                                    label="Amount"
-                                    name="amount"
-                                    size="small"
-                                    className="name"
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid xs={3} item>
-                            <FormControl fullWidth margin="dense">
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    onChange={this.handleIngredientAddition.bind(this)}
-                                    id="unit"
-                                    label="Unit"
-                                    name="unit"
-                                    size="small"
-                                    className="unit"
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid xs={3} item>
-                            <FormControl fullWidth margin="dense">
-                                <TextField hidden={true}
-                                           InputProps={{
-                                               endAdornment: index + 1 ===
-                                                   this.state.directors_array.length && (
-                                                       <InputAdornment position="end">
-                                                           <Tooltip title="Add Ingredient">
-                                                               <Button
-                                                                   color="primary"
-                                                                   size="small"
-                                                                   variant="contained"
-                                                                   onClick={() => this.addIngredientsToList()}>
-                                                                   Save
-                                                               </Button>
-                                                    </Tooltip>
-                                                       </InputAdornment>
-                                                   )
-                                           }}/>
-                            </FormControl>
-                        </Grid>
+            this.state.directors_array.map((input, index) => (
+                <Grid xs={12} container spacing={1} item>
+                    <Grid xs={4} item>
+                        <FormControl fullWidth margin="dense">
+                            <TextField
+                                variant="outlined"
+                                required
+                                onChange={this.handleIngredientAddition.bind(this)}
+                                id="name"
+                                label="Ingredient"
+                                name="name"
+                                size="small"
+                                className="name"
+                            />
+                        </FormControl>
                     </Grid>
-                ))}
-            </div>
+                    <Grid xs={4} item>
+                        <FormControl fullWidth margin="dense">
+                            <TextField
+                                variant="outlined"
+                                type="number"
+                                required
+                                onChange={this.handleIngredientAddition.bind(this)}
+                                id="amount"
+                                label="Amount"
+                                name="amount"
+                                size="small"
+                                className="name"
+                            />
+                        </FormControl>
+                    </Grid>
+                    <Grid xs={4} item>
+                        <FormControl fullWidth margin="dense">
+                            <TextField
+                                variant="outlined"
+                                required
+                                onChange={this.handleIngredientAddition.bind(this)}
+                                id="unit"
+                                label="Unit"
+                                name="unit"
+                                size="small"
+                                className="unit"
+                                InputProps={{
+                                    endAdornment: index + 1 ===
+                                        this.state.directors_array.length && (
+                                            <InputAdornment position="end">
+                                                <Tooltip title="Save Ingredient">
+                                                    <Fab
+                                                        color="primary"
+                                                        size="small"
+                                                        onClick={() => this.addIngredientsToList()}>
+                                                        <AddIcon/>
+                                                    </Fab>
+                                                </Tooltip>
+                                            </InputAdornment>
+                                        )
+                                }}
+                            />
+                        </FormControl>
+                    </Grid>
+                </Grid>
+            ))
         );
     }
 
